@@ -1,25 +1,15 @@
 <?php
 function solution($A, $K)
 {
-    $newArray = $A;
-    $counter = 0;
-    if(!empty($A)) {
-        while ($K > $counter) {
-            $newArray = [];
-            $newArray[0] = end($A);
-            foreach ($A as $key => $item) {
-                if ($key != (count($A) - 1)) {
-                    $newArray[$key + 1] = $A[$key];
-                }
-            }
-            $A = $newArray;
-            $counter++;
+    if (!empty($A)) {
+        for ($i=0; $i<$K; $i++) {
+            $firstLetter=$A[count($A)-1];
+            array_pop($A);
+            array_unshift($A, $firstLetter);
         }
-        return $newArray;
-    }else return [];
+    }
 
 
+    return $A;
 }
-
-$A = [];
-var_dump(solution($A, 1));
+var_dump(solution([3, 8, 9, 7, 6], 3));

@@ -1,21 +1,15 @@
 <?php
-function solution($N){
+function solution($N)
+{
     $binary = decbin($N);
-    $length = 0;
-    if (preg_match('/10{1,}1+/', $binary)) {
-        while (strpos(substr($binary, 1), '1') !== false) {
-            $firstOne = strpos($binary, '1');
-            $part = substr($binary, ($firstOne + 1), strpos(substr($binary, 1), '1'));
-            $thisLength = strlen($part);
-            $binary = substr($binary, $thisLength+1);
-            if ($thisLength > $length) {
-                $length = $thisLength;
-            }
-        }
-    }
 
-    return $length;
+    if (preg_match('/10{1,}1+/', $binary)) {
+        $binary = substr($binary, strpos($binary, '1'), strripos($binary, '1')+1);
+        $strings = explode('1', $binary);
+        return max(array_map('strlen', $strings));
+    }
+    return 0;
 }
 
 
-echo solution(12);
+echo solution(328);
